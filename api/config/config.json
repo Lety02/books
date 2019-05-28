@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "postgres",
-    "password": "uv402-s",
-    "database": "libros",
-    "host": "34.74.58.59",
+    "password": "123",
+    "database": "books2",
+    "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {

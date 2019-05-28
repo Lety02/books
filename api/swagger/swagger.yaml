@@ -56,6 +56,90 @@ paths:
           description: Error
           schema: 
             $ref: "#/definitions/ErrorResponse" 
+    post:
+      description: add a new game system to the list
+      operationId: addBooks
+      parameters:
+        - in: body
+          name: books
+          description: The Books to create.
+          schema:
+            $ref: "#/definitions/Books"
+      responses:
+        "201":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetBooksResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /books/{id}:
+    x-swagger-router-controller: books.controller
+    get:
+      description: get a game system
+      operationId: getBooksbyId
+      parameters:
+        - name: id
+          type: number
+          in: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetBooksResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      description: update a books
+      operationId: updateBooks
+      # define the parameters
+      parameters:
+        - name: id
+          description: books id
+          type: number
+          in: path
+          required: true
+        - in: body
+          name: books
+          description: The Books to update.
+          schema:
+            $ref: "#/definitions/Books"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetBooksResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"  
+    delete:
+      description: delete a books
+      operationId: deleteBooks
+      # define the parameters
+      parameters:
+        - name: id
+          description: books id
+          type: number
+          in: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"               
+
+                    
+           
           
   
   /swagger:
@@ -68,12 +152,22 @@ definitions:
       name:
         type: string
         description: Name of the Books
-      description:
+        
+        
+     
+      author:
         type: string
         description: Description of the Books
-    required:
-      - name
-      - description
+      editorial:
+        type: string
+        description: Description of the Books
+      year:
+        type: integer
+        description: Description of the Books
+      pages:
+        type: integer
+        description: Description of the Book      
+
   GetBooksResponse:
     type: object
     properties:

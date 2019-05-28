@@ -6,7 +6,7 @@ var messageHelper = require('../helpers/message.helper');
 //var shortid = require('shortid');
 
 
-const { Books } = require('../models');	// Sequelize
+const { books } = require('../models');	// Sequelize
 
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
@@ -25,25 +25,25 @@ const GS_CT_DELETED_SUCCESSFULLY = 'Gamesystem deleted successfully';
 ////////////////////////////////////////////////////////////////////////////////
 // PUBLIC METHODS
 ////////////////////////////////////////////////////////////////////////////////
-function getGameSystembyId(req, res) {
+function getBooksbyId(req, res) {
   //console.log("operadores.controller getOperadorById");
   try {
 
     console.log(req.swagger.params.id.value);
     var id = req.swagger.params.id.value;
    
-    console.log("gamesystem by id..." + id);
-    //console.log(gamesystems);
+    console.log("books by id..." + id);
+    //console.log(books);
 
-    Gamesystems.findByPk(id)
-    .then(mygamesystem => {
-    console.log(mygamesystem);
-    res.status(200).send(mygamesystem);
+    books.findByPk(id)
+    .then(mybooks => {
+    console.log(mybooks);
+    res.status(200).send(mybooks);
    })
 
   } catch (error) {
     console.log("Was an error");
-    controllerHelper.handleErrorResponse(MODULE_NAME, getGameSystembyId.name, error, res);
+    controllerHelper.handleErrorResponse(MODULE_NAME, getBooksbyId.name, error, res);
   }
 }
 
@@ -52,8 +52,8 @@ function getBooks(req, res) {
   try {
         
    console.log("books...");
-   console.log(Books);
-   Books.findAll({
+   console.log(books);
+   books.findAll({
     /*include: [{
       model: orderstatus
      
@@ -70,11 +70,11 @@ function getBooks(req, res) {
    });
 
   } catch (error) {
-    controllerHelper.handleErrorResponse(MODULE_NAME, books.name, error, res);
+    controllerHelper.handleErrorResponse(MODULE_NAME, getBooks.name, error, res);
   }
 }
 
-function updateGameSystem(req, res) {
+function updateBooks(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,contenttype'); // If needed
@@ -85,24 +85,28 @@ function updateGameSystem(req, res) {
     var id = req.swagger.params.id.value;
    
     console.log("params : " + id);
-    var myupdategamesystem = req.body;
-    console.log("update gamesystems ... " + myupdategamesystem.name + " " + myupdategamesystem.descripcion);
+    var myupdatebooks = req.body;
+    console.log("update books ... " + myupdatebooks.name + " " + myupdatebooks.descripcion);
  
 
-    Gamesystems.findByPk(id)
-      .then(mygamesystem => {
-        console.log("Result of findById: " + mygamesystem);
-        if (!mygamesystem) {
+    books.findByPk(id)
+      .then(mybooks => {
+        console.log("Result of findById: " + mybooks);
+        if (!mybooks) {
           res.status(401).send(({}));
         
         }
-        return mygamesystem
+        return mybooks
           .update({ 
-            name: myupdategamesystem.name, 
-            description: myupdategamesystem.description 
+            name: myupdatebooks.name, 
+            author: myupdatebooks.author,
+            editorial: myupdatebooks.editorial,
+            year: myupdatebooks.year,
+            pages: myupdatebooks.pages
+            
            })
-          .then(() => res.status(200).send(mygamesystem) )
-          .catch(error => res.status(403).send(mygamesystem));
+          .then(() => res.status(200).send(mybooks) )
+          .catch(error => res.status(403).send(mybooks));
         })
       .catch(error => {
           console.log("There was an error: " + error);
@@ -111,12 +115,12 @@ function updateGameSystem(req, res) {
 
   } catch (error) {
       console.log("Was an error");
-      controllerHelper.handleErrorResponse(MODULE_NAME, updateGameSystem.name, error, res);
+      controllerHelper.handleErrorResponse(MODULE_NAME, updateBooks.name, error, res);
   }
 
 }
 
-function addGameSystem(req, res) {
+function addBooks(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,contenttype'); // If needed
@@ -125,22 +129,30 @@ function addGameSystem(req, res) {
   try {
 
     console.log("params : ");
-    var mygamesystem = req.body;
-    console.log("gamesystems ... " + mygamesystem);
+    var mybooks = req.body;
+    console.log("books ... " + mybooks);
  
-      return Gamesystems
+      return books
         .create({
-          name: mygamesystem.name,
-          description: mygamesystem.description,
-         
+          name: mybooks.name,
+          author: mybooks.author,
+          editorial: mybooks.editorial,
+          year: mybooks.year,
+          pages: mybooks.pages,
+          createdAt: mybooks.createdAt,
+          updatedAt: mybooks.updatedAt
+          
+           
+
+
         }, {
         /*  include: [{
             model: order_detail,
             as: 'orderdetail'
           }] */
         })
-        .then((mygamesystem) => {
-          res.status(201).send(mygamesystem);
+        .then((mybook) => {
+          res.status(201).send(mybook);
               
         })
         .catch((error) => res.status(400).send(error));
@@ -148,12 +160,12 @@ function addGameSystem(req, res) {
 
   } catch (error) {
     console.log("Was an error");
-    controllerHelper.handleErrorResponse(MODULE_NAME, addGameSystem.name, error, res);
+    controllerHelper.handleErrorResponse(MODULE_NAME, addBooks.name, error, res);
   }
 }
 
 
-function deleteGameSystem(req, res) {
+function deleteBooks(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,contenttype'); // If needed
@@ -162,16 +174,16 @@ function deleteGameSystem(req, res) {
   console.log(req.swagger.params.id.value);
   var id = req.swagger.params.id.value;
  
-  Gamesystems
-    .findByPk(id)
-    .then(mygamesystem => {
-      console.log("Result of findById: " + mygamesystem);
-      if (!mygamesystem) {
+  books.findByPk(id)
+  //Books.findById(id)
+    .then(mybooks => {
+      console.log("Result of findById: " + mybooks);
+      if (!mybooks) {
         res.status(200).send({"success": 0, "description":"not found !"});
       }
       else
       {
-      return mygamesystem
+      return mybooks
         .destroy()
         .then(() => res.status(200).send({"success": 1, "description":"deleted!"}))
         .catch(error => res.status(403).send({"success": 0, "description":"error !"}))
@@ -185,11 +197,11 @@ function deleteGameSystem(req, res) {
 }
 
 module.exports = {
-  getGameSystembyId,
+  getBooksbyId,
   getBooks,
-  updateGameSystem,
-  addGameSystem,
-  deleteGameSystem,
+  updateBooks,
+  addBooks,
+  deleteBooks,
   GS_CT_ERR_GAMESYSTEM_NOT_FOUND,
   GS_CT_DELETED_SUCCESSFULLY,
   MODULE_NAME
