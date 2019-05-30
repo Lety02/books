@@ -2,8 +2,8 @@
   "development": {
     "username": "postgres",
     "password": "123",
-    "database": "books2",
-    "host": "127.0.0.1",
+    "database": "libros",
+    "host": "35.232.69.182",
     "dialect": "postgres"
   },
   "test": {
@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "postgres",
+    "password": "123",
+    "database": "libros",
+    "host": "35.232.69.182",
+    "dialect": "postgres"
   }
 }
