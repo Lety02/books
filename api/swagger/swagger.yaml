@@ -4,7 +4,7 @@ info:
   title: Hello World App
 # during dev, should point to your local machine
 #host: localhost:10010
-host:mybooks-242216.appspot.com
+host: my-book2-api.appspot.com
 # basePath prefixes all resource paths 
 basePath: /
 # 

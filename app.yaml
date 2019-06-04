@@ -9,7 +9,7 @@ resources:
 endpoints_api_service:
  # The following values are to be replaced by information from the output of
  # 'gcloud endpoints services deploy openapi-appengine.yaml' command.
- name: mybooks-242216.appspot.com
+ name: my-book2-api.appspot.com
  #rollout_strategy: managed
  # Copyright 2015-2016, Google,
  config_id: 2019-06-04r0
