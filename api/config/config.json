@@ -4,7 +4,8 @@
     "password": "lety0297",
     "database": "libros",
     "host": "35.232.69.182",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "port" : 5432
   },
   "test": {
     "username": "postgres",
