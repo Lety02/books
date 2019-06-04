@@ -12,4 +12,4 @@ endpoints_api_service:
  name: mybooks-242216.appspot.com
  #rollout_strategy: managed
  # Copyright 2015-2016, Google,
- config_id: 2019-05-30r0
+ config_id: 2019-06-04r0
