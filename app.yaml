@@ -1,5 +1,6 @@
 runtime: nodejs
-env: flexmanual_scaling:
+env: flex
+manual_scaling:
  instances: 1
 resources:
  cpu: 1
@@ -12,4 +13,4 @@ endpoints_api_service:
  name: my-book2-api.appspot.com
  #rollout_strategy: managed
  # Copyright 2015-2016, Google,
- config_id: 2019-06-04r0
+ config_id: 2019-06-05r0
